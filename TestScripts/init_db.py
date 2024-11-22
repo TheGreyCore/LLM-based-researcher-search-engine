@@ -5,7 +5,7 @@ db_config = {
     "user": "postgres",
     "password": "postgres",
     "host": "localhost",
-    "port": 5432   
+    "port": 5432
 }
 
 create_researchers_table = """
@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS vectors (
 );
 """
 
+
 def create_tables():
     try:
         conn = psycopg2.connect(**db_config)
@@ -39,6 +40,7 @@ def create_tables():
             cursor.close()
         if conn:
             conn.close()
+
 
 if __name__ == "__main__":
     create_tables()
