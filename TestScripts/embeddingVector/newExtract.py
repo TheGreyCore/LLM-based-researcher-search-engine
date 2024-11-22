@@ -25,8 +25,4 @@ df["combined"] = (
         df["Authors"] + " " + df["Title"] + " " + df["AbstractInEnglish"]
 )
 
-df["n_tokens"] = df.combined.apply(lambda x: len(encode(str(x), "utf-8")))
-df = df[df.n_tokens <= MAX_TOKENS]
-
-df["embedding"] = df.combined.apply(lambda x: client.extract(x))
-df.to_csv("publications_extraction_test_data.csv")
+client.getEmbeddingsVectorsFromCSV(df)
