@@ -15,7 +15,7 @@ embedding_vectors = EmbeddingVectors(
 )
 
 
-class service:
+class Service:
     def __init__(self):
         pass
 
