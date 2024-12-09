@@ -2,6 +2,7 @@
 from openai import AzureOpenAI
 from pymilvus import connections, Collection, FieldSchema, CollectionSchema, DataType, utility, Index
 
+
 def _initialize_collection():
     collection_name = "embeddings"
     if utility.has_collection(collection_name):
@@ -15,12 +16,14 @@ def _initialize_collection():
     collection = Collection(collection_name, schema)
     return collection
 
+
 def _connect_to_milvus():
     connections.connect(
         alias="default",
         host="localhost",
         port="19530"
     )
+
 
 class EmbeddingVectors:
     def __init__(self, api_key, api_version, azure_endpoint):
