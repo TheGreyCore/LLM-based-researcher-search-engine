@@ -20,18 +20,18 @@ df = pd.read_csv(input_datapath, encoding="utf-8", sep=",")
 df["combined"] = df["Authors"] + " " + df["Title"] + " " + df["AbstractInEnglish"]
 
 # Insert the embeddings into the database
-# embedding_vectors.insert_embeddings(df)
+embedding_vectors.insert_embeddings(df)
 
 # Define the prompt
-prompt = "Research where was applied AI"
+# prompt = "Research where was applied AI"
 
 # Extract the embedding for the prompt
-prompt_embedding = embedding_vectors.extract(prompt)
+# prompt_embedding = embedding_vectors.extract(prompt)
 
 # Find the 5 nearest vectors
-nearest_vectors = embedding_vectors.getNearestEmbedding(prompt, n=5)
+# nearest_vectors = embedding_vectors.getNearestEmbedding(prompt, n=5)
 
 # Print the metadata of the nearest vectors
-print("Nearest vectors metadata:")
-for metadata in nearest_vectors:
-    print(metadata)
+# print("Nearest vectors metadata:")
+# for metadata in nearest_vectors:
+    # print(metadata)

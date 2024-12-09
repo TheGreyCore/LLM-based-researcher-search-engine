@@ -9,8 +9,11 @@ def _initialize_collection():
         pass
     fields = [
         FieldSchema(name="id", dtype=DataType.INT64, is_primary=True, auto_id=True),
+        FieldSchema(name="authors", dtype=DataType.VARCHAR, max_length=3102),
+        FieldSchema(name="title", dtype=DataType.VARCHAR, max_length=3102),
+        # FieldSchema(name="link", dtype=DataType.VARCHAR, max_length=3102),
+        FieldSchema(name="abstract", dtype=DataType.VARCHAR, max_length=6274),
         FieldSchema(name="embedding", dtype=DataType.FLOAT_VECTOR, dim=1536),
-        FieldSchema(name="text", dtype=DataType.VARCHAR, max_length=3102)
     ]
     schema = CollectionSchema(fields, "Embedding collection schema")
     collection = Collection(collection_name, schema)
@@ -42,8 +45,13 @@ class EmbeddingVectors:
 
     def insert_embeddings(self, df):
         embeddings = df["combined"].apply(self.extract).tolist()
-        texts = df["combined"].apply(lambda x: x[:512]).tolist()  # Truncate text to 512 characters
-        data = [embeddings, texts]  # Prepare the data to match the schema
+        # texts = df["combined"].apply(lambda x: x[:512]).tolist()  # Truncate text to 512 characters n 
+        authors = df["Authors"].tolist()
+        titles = df["Title"].tolist()
+        # links = df["Link"].tolist()
+
+        abstracts = df["AbstractInEnglish"].apply(lambda x: x[:6000]).tolist()
+        data = [authors, titles, abstracts, embeddings]  # Prepare the data to match the schema
         self.collection.insert(data)
 
     def extract(self, text):

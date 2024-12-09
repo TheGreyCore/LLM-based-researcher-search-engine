@@ -15,8 +15,6 @@ embedding_vectors = EmbeddingVectors(
 )
 
 
-
-
 class service:
     def __init__(self):
         pass
@@ -24,3 +22,4 @@ class service:
     def processPrompt(self, user_prompt):
         prompt = gpt.extract(user_prompt)
         return embedding_vectors.getNearestEmbedding(prompt, n=5)
+
