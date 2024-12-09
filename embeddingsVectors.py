@@ -12,7 +12,6 @@ def _initialize_collection():
         FieldSchema(name="authors", dtype=DataType.VARCHAR, max_length=3102),
         FieldSchema(name="title", dtype=DataType.VARCHAR, max_length=3102),
         # FieldSchema(name="link", dtype=DataType.VARCHAR, max_length=3102),
-        FieldSchema(name="abstract", dtype=DataType.VARCHAR, max_length=6274),
         FieldSchema(name="embedding", dtype=DataType.FLOAT_VECTOR, dim=1536),
     ]
     schema = CollectionSchema(fields, "Embedding collection schema")
@@ -50,8 +49,8 @@ class EmbeddingVectors:
         titles = df["Title"].tolist()
         # links = df["Link"].tolist()
 
-        abstracts = df["AbstractInEnglish"].apply(lambda x: x[:6000]).tolist()
-        data = [authors, titles, abstracts, embeddings]  # Prepare the data to match the schema
+        # abstracts = df["AbstractInEnglish"].apply(lambda x: x[:6000]).tolist()
+        data = [authors, titles, embeddings]  # Prepare the data to match the schema
         self.collection.insert(data)
 
     def extract(self, text):
@@ -61,7 +60,7 @@ class EmbeddingVectors:
         )
         return embedding_response.data[0].embedding
 
-    def getNearestEmbedding(self, specific_text, n=3):
+    def getNearestEmbedding(self, specific_text, n=1):
         self.collection.load()
         specific_embedding = self.extract(specific_text)
         search_params = {"metric_type": "L2", "params": {"nprobe": 10}}

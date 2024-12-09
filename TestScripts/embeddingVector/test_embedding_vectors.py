@@ -11,13 +11,14 @@ embedding_vectors = EmbeddingVectors(
 )
 
 # Define the path to the input data file
-input_datapath = "TestScripts/embeddingVector/testData/publications_test_data.csv"
+input_datapath = "data/Publications_all.csv"
 
 # Load the data from the CSV file
 df = pd.read_csv(input_datapath, encoding="utf-8", sep=",")
 
 # Combine the relevant columns into a single column
-df["combined"] = df["Authors"] + " " + df["Title"] + " " + df["AbstractInEnglish"]
+df["combined"] = (df["Year"].astype(str) + " " + df["Authors"].astype(str) + " " + df["Title"].astype(str) + " " + df["ImportedKeywords"].astype(str) + " "
+                  + df["AuthorKeywords"].astype(str) + " " + df["Abstract"].astype(str))
 
 # Insert the embeddings into the database
 embedding_vectors.insert_embeddings(df)
