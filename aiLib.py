@@ -15,6 +15,7 @@ class AILib:
         If needed - translate the text to English.
         """
         system_prompt = (
+            "If prompt is not in English, translate it to English. "
             "You are part of a project which is creating a search engine for Tartu University researchers using embedding vectors. "
             "You should analyze user input and extract from it the specific data for searching and give it to us. "
             "If needed, you should translate input to English. "

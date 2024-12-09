@@ -20,6 +20,8 @@ class service:
         pass
 
     def processPrompt(self, user_prompt):
+        print(f"User prompt: {user_prompt}")
         prompt = gpt.extract(user_prompt)
+        print(f"Prompt: {prompt}")
         return embedding_vectors.getNearestEmbedding(prompt, n=5)
 

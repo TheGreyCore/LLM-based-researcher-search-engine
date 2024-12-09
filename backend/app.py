@@ -1,9 +1,9 @@
 from flask import Flask, request
-from service import service
+from service import Service
 
 app = Flask(__name__)
 
-service = service()
+service = Service()
 
 
 @app.route("/prompt")
