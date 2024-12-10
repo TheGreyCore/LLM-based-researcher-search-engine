@@ -23,5 +23,6 @@ class Service:
         # print(f"User prompt: {user_prompt}")
         prompt = gpt.extract(user_prompt)
         print(f"Prompt: {prompt}")
-        return {"titles": "\n".join(embedding_vectors.getNearestEmbedding(prompt, n=5))}
+        unprocessed_output = embedding_vectors.getNearestEmbedding(prompt, n=5)
+        return gpt.create_output(user_prompt, unprocessed_output)
 

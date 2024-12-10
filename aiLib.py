@@ -23,12 +23,27 @@ class AILib:
             "Output must only contain the filtered data."
         )
 
+        return self.request(system_prompt, input_text)
+
+    def create_output(self, user_input, unprocessed_output):
+        """
+        Create output for the user input.
+        """
+        system_prompt = (
+            "You are part of a project which is creating a search engine for Tartu University researchers using embedding vectors. "
+            "You should analyze user_input and unprocessed_output and answer for the user_input, using the unproccesed_output."
+            "Answer should be in same language as user_input. Do not translate titles. If needed fix names of the authors."
+            "Do not add any additional information. Add that you can help to find more researchers if needed."
+        )
+        return self.request(system_prompt, f"user_input:{user_input} unprocessed_output:{unprocessed_output}")
+
+    def request(self, system_prompt, user_input):
         chat_completion = self.client.chat.completions.create(
             model="IDS2024_MATETSKI_gpt_4o_mini",
             temperature=0.0,
             messages=[
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": input_text}
+                {"role": "user", "content": user_input}
             ]
         )
         return chat_completion.choices[0].message.content

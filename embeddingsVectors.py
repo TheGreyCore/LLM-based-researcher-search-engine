@@ -70,6 +70,6 @@ class EmbeddingVectors:
             param=search_params,
             limit=n,
             expr=None,
-            output_fields=["title"]
+            output_fields=["authors", "title"]
         )
-        return [result.entity.get("title") for result in results[0]]
+        return [(result.entity.get("authors"), result.entity.get("title")) for result in results[0]]
