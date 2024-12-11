@@ -16,7 +16,9 @@ class AILib:
         """
         system_prompt = (
             "If prompt is not in English, translate it to English. "
-            "You are part of a project which is creating a search engine for Tartu University researchers using embedding vectors. "
+            "You are part of a project which is creating a search engine for Tartu University researchers using embedding vectors."
+            "First, analyze the user input and validate that it is a valid search query. User can search for researchers"
+            "by their name, research title or part of it, type of research. If it is not valid, return only [ERROR]"
             "You should analyze user input and extract from it the specific data for searching and give it to us. "
             "If needed, you should translate input to English. "
             "Also you can ignore institute/University/type of research and delete them from the output. "
