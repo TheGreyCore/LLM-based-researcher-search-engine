@@ -21,6 +21,8 @@ class AILib:
             "If needed, you should translate input to English. "
             "Also you can ignore institute/University/type of research and delete them from the output. "
             "Output must only contain the filtered data."
+            "Also determine the amount of examples to find, by default it is 5. This number must be in the beginning of"
+            "the output in format [n=5]"
         )
 
         return self.request(system_prompt, input_text)

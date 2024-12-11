@@ -21,8 +21,10 @@ class Service:
 
     def processPrompt(self, user_prompt):
         # print(f"User prompt: {user_prompt}")
-        prompt = gpt.extract(user_prompt)
+        response = gpt.extract(user_prompt)
+        n = int(response.split("]")[0].split("=")[1])
+        prompt = response.split("]")[1].strip()
         print(f"Prompt: {prompt}")
-        unprocessed_output = embedding_vectors.getNearestEmbedding(prompt, n=5)
+        unprocessed_output = embedding_vectors.getNearestEmbedding(prompt, n=n)
         return gpt.create_output(user_prompt, unprocessed_output)
 
