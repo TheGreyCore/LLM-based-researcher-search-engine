@@ -24,7 +24,9 @@ class Service:
         pass
 
     def processPrompt(self, user_prompt):
-        # print(f"User prompt: {user_prompt}")
+        """
+        Process user prompt and return the result of searching in human-readable form.
+        """
         logging.info(f"Prompt: {user_prompt}")
         response = gpt.extract(user_prompt)
         logging.info(f"Prompt: {response}")

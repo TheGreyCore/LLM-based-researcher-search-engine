@@ -44,6 +44,9 @@ class AILib:
         return self.request(system_prompt, f"user_input:{user_input} unprocessed_output:{unprocessed_output}")
 
     def request(self, system_prompt, user_input):
+        """
+        Request the response from the Azure API.
+        """
         chat_completion = self.client.chat.completions.create(
             model="IDS2024_MATETSKI_gpt_4o_mini",
             temperature=0.0,

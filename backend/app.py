@@ -7,7 +7,10 @@ service = Service()
 
 
 @app.route("/prompt")
-def hello_world():
+def promptProcessing():
+    """
+    Process the prompt and return the result.
+    """
     prompt = request.args.get("prompt")
     if request.args.get("key") != "forTesting":
         return "Invalid key"
