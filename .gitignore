@@ -315,11 +315,11 @@ volumes/minio/.minio.sys/buckets/.bloomcycle.bin/xl.meta
 volumes/minio/.minio.sys/buckets/.usage-cache.bin/xl.meta
 volumes/minio/.minio.sys/buckets/.usage.json/xl.meta
 volumes/minio/.minio.sys/buckets/a-bucket/.metadata.bin/xl.meta
-
-# dependencies
-/frontend/node_modules
 volumes/minio/.minio.sys/buckets/a-bucket/.usage-cache.bin/xl.meta
 volumes/minio/.minio.sys/config/config.json/xl.meta
 volumes/minio/.minio.sys/config/iam/format.json/xl.meta
 volumes/minio/.minio.sys/format.json
 volumes/minio/.minio.sys/pool.bin/xl.meta
+
+# dependencies
+/frontend/node_modules
