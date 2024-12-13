@@ -1,5 +1,6 @@
 from aiLib import AILib
 import os
+import logging
 from embeddingsVectors import EmbeddingVectors
 
 gpt = AILib(
@@ -14,15 +15,24 @@ embedding_vectors = EmbeddingVectors(
     azure_endpoint="https://tu-openai-api-management.azure-api.net/oltatkull/openai/deployments/IDS2024_MATETSKI_EMBEDDING/embeddings?api-version=2024-02-01"
 )
 
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 class Service:
     def __init__(self):
         pass
 
     def processPrompt(self, user_prompt):
-        # print(f"User prompt: {user_prompt}")
-        prompt = gpt.extract(user_prompt)
-        print(f"Prompt: {prompt}")
-        unprocessed_output = embedding_vectors.getNearestEmbedding(prompt, n=5)
+        """
+        Process user prompt and return the result of searching in human-readable form.
+        """
+        logging.info(f"Prompt: {user_prompt}")
+        response = gpt.extract(user_prompt)
+        logging.info(f"Prompt: {response}")
+        if response.startswith("[ERROR]"):
+            return "Invalid search query. We can not help you with that :("
+        n = int(response.split("]")[0].split("=")[1])
+        prompt = response.split("]")[1].strip()
+        unprocessed_output = embedding_vectors.getNearestEmbedding(prompt, n=n)
         return gpt.create_output(user_prompt, unprocessed_output)
-

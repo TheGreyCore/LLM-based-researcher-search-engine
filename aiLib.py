@@ -16,11 +16,15 @@ class AILib:
         """
         system_prompt = (
             "If prompt is not in English, translate it to English. "
-            "You are part of a project which is creating a search engine for Tartu University researchers using embedding vectors. "
+            "You are part of a project which is creating a search engine for Tartu University researchers using embedding vectors."
+            "First, analyze the user input and validate that it is a valid search query. User can search for researchers"
+            "by their name, research title or part of it, type of research. If it is not valid, return only [ERROR]"
             "You should analyze user input and extract from it the specific data for searching and give it to us. "
             "If needed, you should translate input to English. "
             "Also you can ignore institute/University/type of research and delete them from the output. "
             "Output must only contain the filtered data."
+            "Also determine the amount of examples to find, by default it is 5. This number must be in the beginning of"
+            "the output in format [n=5]"
         )
 
         return self.request(system_prompt, input_text)
@@ -40,6 +44,9 @@ class AILib:
         return self.request(system_prompt, f"user_input:{user_input} unprocessed_output:{unprocessed_output}")
 
     def request(self, system_prompt, user_input):
+        """
+        Request the response from the Azure API.
+        """
         chat_completion = self.client.chat.completions.create(
             model="IDS2024_MATETSKI_gpt_4o_mini",
             temperature=0.0,

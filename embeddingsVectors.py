@@ -43,17 +43,21 @@ class EmbeddingVectors:
         self.collection.create_index(field_name="embedding", index_params=index_params)
 
     def insert_embeddings(self, df):
+        """
+        Insert the embeddings into the Milvus collection.
+        """
         embeddings = df["combined"].apply(self.extract).tolist()
-        # texts = df["combined"].apply(lambda x: x[:512]).tolist()  # Truncate text to 512 characters n 
         authors = df["Authors"].tolist()
         titles = df["Title"].tolist()
         # links = df["Link"].tolist()
 
-        # abstracts = df["AbstractInEnglish"].apply(lambda x: x[:6000]).tolist()
         data = [authors, titles, embeddings]  # Prepare the data to match the schema
         self.collection.insert(data)
 
     def extract(self, text):
+        """
+        Extract the embedding from the text.
+        """
         embedding_response = self.client.embeddings.create(
             model="IDS2024_MATETSKI_EMBEDDING",
             input=text
@@ -61,6 +65,9 @@ class EmbeddingVectors:
         return embedding_response.data[0].embedding
 
     def getNearestEmbedding(self, specific_text, n=1):
+        """
+        Get the nearest embeddings to the specific text.
+        """
         self.collection.load()
         specific_embedding = self.extract(specific_text)
         search_params = {"metric_type": "L2", "params": {"nprobe": 10}}
