@@ -1,6 +1,15 @@
 # LLM-based Researcher Search Engine
 
+Project (E13) created by:
+- Dmitri Matetski
+- Hendrik Püss
+- Georg-Oliver Loorand
+
+## Preface
+
 This project is a search engine for researchers at the University of Tartu, utilizing large language models (LLMs) and embedding vectors to provide accurate and relevant search results.
+
+Our main objective is to create a tool that enables users to find key information quickly -- in this case, searching for researchers and studies from the University of Tartu. In a practical sense, the project can be scaled and transform to other fields with minimal changes in code. For example, hospital workers may find it useful to quickly access critical information that is normally stored in large databases.
 
 ## Features
 
@@ -60,3 +69,8 @@ This project is a search engine for researchers at the University of Tartu, util
 To search for researchers, send a GET request to the `/prompt` endpoint with the query and key parameters:
 ```sh
 curl "http://localhost:5000/prompt?prompt=search_query&key=forTesting"
+```
+
+## Data collection
+
+In this project, each entry is required to contain the release year, title, authors, keywords, links, and abstract. The largest hurdle in terms of data was collecting the abstracts, as only a small fraction of studies submitted to ETIS (Estonian Research Information System) contain them. Consequently, we used a web scraper to gather more data. This would quickly offer diminishing returns as the scraper had to be adjusted for every domain separately, and every subsequent domain would have given us only 25 or fewer entries. In total, we collected nearly 900 entries that had to be cleaned.
